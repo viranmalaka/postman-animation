@@ -1,0 +1,15 @@
+<h3>{{name}}
+  <span class="glyphicon" (click)="isCollapsed = !isCollapsed"
+        [class.glyphicon-triangle-right]="isCollapsed"
+        [class.glyphicon-triangle-bottom]="!isCollapsed"
+        aria-hidden="true"></span></h3>
+<div id="collapseExample" [ngbCollapse]="isCollapsed">
+  <ace-editor
+    #editor
+    [(text)]="code"
+    mode="javascript"
+    style="height:150px;"
+  ></ace-editor>
+
+</div>
+

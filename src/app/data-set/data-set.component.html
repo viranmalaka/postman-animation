@@ -1,0 +1,28 @@
+<h3>{{name}}
+<span class="glyphicon" (click)="isCollapsed = !isCollapsed"
+      [class.glyphicon-triangle-right]="isCollapsed"
+      [class.glyphicon-triangle-bottom]="!isCollapsed"
+      aria-hidden="true"></span></h3>
+<div id="collapseExample" [ngbCollapse]="isCollapsed">
+  <div class="row">
+    <div class="row" *ngFor="let raw of data; let i = index">
+      <div class="col-md-1">
+        <button type="button" class="btn btn-default btn-danger" (click)="data.splice(i,1)">X</button>
+      </div>
+      <div class="col-md-3 noPadding">
+        <input type="text" class="form-control" placeholder="Key" [(ngModel)]="raw.key">
+      </div>
+      <div class="col-md-4 noPadding">
+        <input type="text" class="form-control" placeholder="Value" [(ngModel)]="raw.value">
+      </div>
+      <div class="col-md-4 noPadding">
+        <input type="text" class="form-control" placeholder="Description" [(ngModel)]="raw.description">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-1">
+        <button type="button" class="btn btn-default" (click)="addNewEntry()">+</button>
+      </div>
+    </div>
+  </div>
+</div>
