@@ -6,6 +6,7 @@
       <app-side-bar [data]="data" [simple]="simpleDataChange"
                     (add)="addNewRequest($event)"
                     (remove)="removeRequest($event)"
+                    (select)="selectNode($event)"
       ></app-side-bar>
     </div>
     <div class="col-md-9" style="margin-top:0px;">
@@ -34,32 +35,41 @@
           </div>
         </div>
         <div class="col-md-9">
-          <input type="text" class="form-control" placeholder="Url">
+          <input type="text" class="form-control" placeholder="Url"
+            ([ngModel])="currentObject['request'] ? currentObject['request'].url : ''">
         </div>
       </div>
       <div class="row">
         <app-data-set [data]="params" name="Params"></app-data-set>
       </div>
       <div class="row">
-        <app-data-set [data]="header" name="Header"></app-data-set>
+        <app-data-set [data]="
+            currentObject['request'] ? currentObject['request'].header : []
+          " name="Header"></app-data-set>
       </div>
       <div class="row">
-        <app-data-set [data]="body" name="Body"></app-data-set>
+        <app-data-set [data]="
+             currentObject['request'] ? currentObject['request'].body.urlencoded : []
+          " name="Body"></app-data-set>
       </div>
       <div class="row">
-        <app-code name="Pre-request Script"></app-code>
+        <app-code name="Pre-request Script" [code]="currentPreCode"></app-code>
       </div>
       <div class="row">
-        <app-code name="Pre-request Script"></app-code>
+        <app-code name="test Script" [code]="currentTestCode"></app-code>
       </div>
     </div>
   </div>
 </div>
+<button (click)="setStrData()">print</button>
+<pre>
+  {{strData}}
+</pre>
 
-<ace-editor
-  #editor
-  [(text)]="data"
-  mode="javascript"
-  style="height:150px;"
-></ace-editor>
+<!--<ace-editor-->
+  <!--#editor-->
+  <!--[(text)]="data"-->
+  <!--mode="javascript"-->
+  <!--style="height:150px;"-->
+<!--&gt;</ace-editor>-->
 

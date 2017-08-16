@@ -3,10 +3,13 @@
         [class.glyphicon-triangle-right]="isCollapsed"
         [class.glyphicon-triangle-bottom]="!isCollapsed"
         aria-hidden="true"></span></h3>
+  <button type="button" class="btn btn-default btn-sm" (click)="refresh()">
+    <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+  </button>
 <div id="collapseExample" [ngbCollapse]="isCollapsed">
   <ace-editor
     #editor
-    [(text)]="code"
+    [(text)]="codeStr"
     mode="javascript"
     style="height:150px;"
   ></ace-editor>

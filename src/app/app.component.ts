@@ -1,4 +1,5 @@
-import {Component} from '@angular/core';
+
+import {Component} from "@angular/core";
 
 @Component({
   selector: 'app-root',
@@ -6,6 +7,10 @@ import {Component} from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
+  currentObject = {};
+  currentPreCode = [];
+  currentTestCode = [];
 
   stringifyData = '';
   params = [];
@@ -101,16 +106,49 @@ export class AppComponent {
     if (path.length > 1) {
       let currentArr = this.data.item;
       let previous;
-      path.slice(1).forEach((x) => {
+      path.slice(1, path.length - 1).forEach((x) => {
         previous = currentArr[x];
         currentArr = previous.item;
       });
+      console.log(previous);
+      console.log(currentArr);
       const removeIndex = path[path.length - 1];
       currentArr.splice(removeIndex, 1);
       this.simpleDataChange = !this.simpleDataChange;
     }
   }
 
+  public selectNode(path: any): void {
+    let currentArr = this.data.item;
+    path.slice(1, path.length - 1).forEach((x) => {
+      currentArr = currentArr[x]['item'];
+    });
+    const obj = currentArr[path[path.length - 1]];
+    if (!obj['item']) {
+      this.currentObject = obj;
+      this.setCode();
+    }
+  }
+
+  public setCode(): void{
+    if (this.currentObject) {
+      if (this.currentObject['event']) {
+        this.currentObject['event'].forEach((x) => {
+          if (x.listen === 'test') {
+            this.currentTestCode = x.script.exec;
+          }else if(x.listen === 'prerequest') {
+            this.currentPreCode = x.script.exec;
+          }
+        });
+      }
+    }
+  }
+
+  strData = 'test';
+
+  public setStrData(){
+    this.strData = JSON.stringify(this.currentObject,null,4);
+  }
   data = {
     'variables': [],
     'info': {

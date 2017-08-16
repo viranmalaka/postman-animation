@@ -14,6 +14,7 @@ export class SideBarComponent implements OnInit, OnChanges {
 
   @Output() add: EventEmitter<any> = new EventEmitter();
   @Output() remove: EventEmitter<any> = new EventEmitter();
+  @Output() select: EventEmitter<any> = new EventEmitter();
 
   nodes = [];
 
@@ -70,6 +71,11 @@ export class SideBarComponent implements OnInit, OnChanges {
   }
 
   public changeSelection($event) {
-
+    const IdArr = this.tree.treeModel.getNodeById(Object.keys($event.treeModel.activeNodeIds)[0]).path;
+    const indexList = [];
+    IdArr.forEach(x => {
+      indexList.push(this.tree.treeModel.getNodeById(x).index);
+    });
+    this.select.emit(indexList);
   }
 }

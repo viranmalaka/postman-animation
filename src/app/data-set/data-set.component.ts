@@ -8,7 +8,7 @@ import {Component, Input, OnInit} from '@angular/core';
 export class DataSetComponent implements OnInit {
   @Input() data;
   @Input() name;
-  isCollapsed: boolean;
+  isCollapsed = true;
   constructor() { }
 
   ngOnInit() {
